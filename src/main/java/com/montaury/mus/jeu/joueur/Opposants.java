@@ -4,23 +4,21 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Opposants {
-  private Joueur joueurEsku;
-  private Joueur joueurZaku;
+  private Equipe equipe1;
+  private Equipe equipe2;
 
-  public Opposants(Joueur joueurEsku, Joueur joueurZaku) {
-    this.joueurEsku = joueurEsku;
-    this.joueurZaku = joueurZaku;
+  public Opposants(Equipe e1, Equipe e2) {
+    this.equipe1 = e1;
+    this.equipe2 = e2;
   }
 
   public void tourner() {
-    Joueur tmp = joueurEsku;
+    Joueur tmp = equipe1.joueur1();
     joueurEsku = joueurZaku;
     joueurZaku = tmp;
   }
 
-  public Joueur joueurEsku() {
-    return joueurEsku;
-  }
+  public Joueur joueurEsku() { return joueurEsku; }
 
   public Joueur joueurZaku() {
     return joueurZaku;
