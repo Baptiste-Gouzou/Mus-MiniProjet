@@ -22,8 +22,14 @@ public class InterfaceJoueurHumain implements InterfaceJoueur {
 
   @Override
   public boolean veutAllerMus() {
+    String reponse;
     println("Souhaitez-vous aller mus ? (o/n)");
-    return scanner.next().equals("o");
+    reponse = scanner.next();
+    while(!reponse.equals("o") && !reponse.equals("n")){
+        println("ressaisie bro ? (o/n)");
+        reponse = scanner.next();
+    }
+    return (reponse.equals("o"));
   }
 
   @Override
@@ -38,10 +44,16 @@ public class InterfaceJoueurHumain implements InterfaceJoueur {
 
   @Override
   public Choix faireChoixParmi(List<TypeChoix> choixPossibles) {
+
     print("Faites un choix entre (en toutes lettres): ");
     println(choixPossibles.stream().map(TypeChoix::nom).collect(Collectors.joining(" | ")));
     String choix = scanner.next();
-    if (choix.equalsIgnoreCase("Paso")) return new Paso();
+    while(!choix.equals("Paso") && !choix.equals("Imido") && !choix.equals("Hordago") && !choix.equals("Idoki") && !choix.equals("Tira") && !choix.equals("Gehiago") && !choix.equals("Kanta"))
+    {
+      println("tu as mal saisie, recommence !");
+      println(choixPossibles.stream().map(TypeChoix::nom).collect(Collectors.joining(" | ")));
+      choix = scanner.next();
+    }
     if (choix.equalsIgnoreCase("Imido")) return new Imido();
     if (choix.equalsIgnoreCase("Hordago")) return new Hordago();
     if (choix.equalsIgnoreCase("Idoki")) return new Idoki();
