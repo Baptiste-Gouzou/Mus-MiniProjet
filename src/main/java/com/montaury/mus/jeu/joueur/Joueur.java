@@ -4,34 +4,22 @@ import com.montaury.mus.jeu.carte.Carte;
 import java.util.List;
 
 public class Joueur {
-  public static Joueur humain(String nom, boolean e, boolean z) {
-    return new Joueur(nom, new InterfaceJoueurHumain(), e, z);
+  public static Joueur humain(String nom) {
+    return new Joueur(nom, new InterfaceJoueurHumain());
   }
 
-  public static Joueur ordinateur(boolean e, boolean z) {
-    return new Joueur("Ordinateur", new InterfaceJoueurOrdinateur(), e, z);
+  public static Joueur ordinateur() {
+    return new Joueur("Ordinateur", new InterfaceJoueurOrdinateur());
   }
 
   private final String nom;
   public final InterfaceJoueur interfaceJoueur;
   private final Main main = Main.vide();
-  private boolean esku;
-  private boolean zaku;
 
-  public Joueur(String nom, InterfaceJoueur interfaceJoueur, boolean e, boolean z) {
+  public Joueur(String nom, InterfaceJoueur interfaceJoueur) {
     this.nom = nom;
     this.interfaceJoueur = interfaceJoueur;
-    esku = e;
-    zaku = z;
   }
-
-  public boolean isEsku(){ return esku; }
-
-  public boolean isZaku(){ return zaku; }
-
-  public devientEsku(boolean b){ esku = b; }
-
-  public devientZaku(boolean b){ zaku = b; }
 
 
   public String nom() {
