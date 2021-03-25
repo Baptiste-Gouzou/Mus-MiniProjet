@@ -17,20 +17,26 @@ public class Grand extends Phase {
 
   @Override
   protected Joueur meilleurParmi(Opposants opposants) {
-    Joueur joueurEsku = opposants.joueurEsku();
-    Joueur joueurZaku = opposants.joueurZaku();
-    List<Carte> cartesJoueurEsku = joueurEsku.main().cartesDuPlusGrandAuPlusPetit();
-    List<Carte> cartesJoueurZaku = joueurZaku.main().cartesDuPlusGrandAuPlusPetit();
+    Joueur joueur1 = opposants.getEquipe1().joueur1();
+    Joueur joueur2 = opposants.getEquipe1().joueur2();
+    Joueur joueur3 = opposants.getEquipe2().joueur1();
+    Joueur joueur4 = opposants.getEquipe2().joueur2();
 
-    for (int i = 0; i < Main.TAILLE; i++) {
-      ValeurCarte.Comparaison compare = cartesJoueurEsku.get(i).comparerAvec(cartesJoueurZaku.get(i));
-      if (compare == PLUS_GRANDE) {
-        return joueurEsku;
-      }
-      if (compare == PLUS_PETITE) {
-        return joueurZaku;
-      }
+    Joueur joueurInter = plusGrandeCarte(joueur1, joueur2);
+    Joueur joueurInter2 = plusGrandeCarte(joueur3, joueur4);
+
+    return plusGrandeCarte(joueurInter, joueurInter2);
+  }
+
+  public Joueur plusGrandeCarte(Joueur j1, Joueur j2){
+    List<Carte> carteJ1 = j1.main().cartesDuPlusGrandAuPlusPetit();
+    List<Carte> carteJ2 = j2.main().cartesDuPlusGrandAuPlusPetit();
+
+    if(carteJ1.get(carteJ1.size()-1).valeur() <= carteJ2.get(carteJ2.size()-1).valeur()){
+      return j1;
     }
-    return joueurEsku;
+    else {
+      return j2;
+    }
   }
 }

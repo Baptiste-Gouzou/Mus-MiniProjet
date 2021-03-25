@@ -1,6 +1,7 @@
 package com.montaury.mus.jeu.tour.phases;
 
 import com.montaury.mus.jeu.carte.Carte;
+import com.montaury.mus.jeu.joueur.Equipe;
 import com.montaury.mus.jeu.joueur.Joueur;
 import com.montaury.mus.jeu.joueur.Opposants;
 import org.junit.jupiter.api.Test;
@@ -12,10 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PairesTest {
   @Test
   void ne_doit_pas_se_derouler_si_personne_n_a_de_paires() {
-    Opposants opposants = new Opposants(
-      unJoueurAvec(main(Carte.AS_BATON, Carte.QUATRE_PIECE, Carte.VALET_BATON, Carte.SIX_COUPE)),
-      unJoueurAvec(main(Carte.VALET_PIECE, Carte.SIX_PIECE, Carte.QUATRE_BATON, Carte.AS_PIECE))
-    );
+    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+
+    Equipe equipe1 =  new Equipe("equipe1", joueurEsku, joueur2);
+    Equipe equipe2 =  new Equipe("equipe2", joueur3, joueurZaku);
+
+    Opposants opposants = new Opposants(equipe1, equipe2);
 
     boolean peutSeDerouler = new Paires().peutSeDerouler(opposants);
 
@@ -24,10 +30,15 @@ class PairesTest {
 
   @Test
   void ne_doit_pas_se_derouler_si_un_des_joueurs_n_a_pas_de_paires() {
-    Opposants opposants = new Opposants(
-      unJoueurAvec(main(Carte.AS_BATON, Carte.QUATRE_PIECE, Carte.VALET_BATON, Carte.SIX_COUPE)),
-      unJoueurAvec(main(Carte.VALET_PIECE, Carte.SIX_PIECE, Carte.SIX_EPEE, Carte.AS_PIECE))
-    );
+    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+
+    Equipe equipe1 =  new Equipe("equipe1", joueurEsku, joueur2);
+    Equipe equipe2 =  new Equipe("equipe2", joueur3, joueurZaku);
+
+    Opposants opposants = new Opposants(equipe1,equipe2);
 
     boolean peutSeDerouler = new Paires().peutSeDerouler(opposants);
 
@@ -36,10 +47,15 @@ class PairesTest {
 
   @Test
   void devrait_se_derouler_si_les_deux_joueurs_ont_des_paires() {
-    Opposants opposants = new Opposants(
-      unJoueurAvec(main(Carte.AS_BATON, Carte.QUATRE_PIECE, Carte.VALET_BATON, Carte.QUATRE_COUPE)),
-      unJoueurAvec(main(Carte.VALET_PIECE, Carte.SIX_PIECE, Carte.SIX_EPEE, Carte.AS_PIECE))
-    );
+    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.CINQ_BATON, Carte.AS_COUPE));
+    Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.TROIS_BATON, Carte.SIX_PIECE));
+
+    Equipe equipe1 =  new Equipe("equipe1", joueurEsku, joueur2);
+    Equipe equipe2 =  new Equipe("equipe2", joueur3, joueurZaku);
+
+    Opposants opposants = new Opposants(equipe1, equipe2);
 
     boolean peutSeDerouler = new Paires().peutSeDerouler(opposants);
 
@@ -48,11 +64,15 @@ class PairesTest {
 
   @Test
   void devrait_faire_gagner_le_joueur_ayant_la_meilleure_paire() {
-    Joueur joueurZaku = unJoueurAvec(main(Carte.VALET_PIECE, Carte.SIX_PIECE, Carte.SIX_EPEE, Carte.AS_PIECE));
-    Opposants opposants = new Opposants(
-      unJoueurAvec(main(Carte.AS_BATON, Carte.QUATRE_PIECE, Carte.VALET_BATON, Carte.QUATRE_COUPE)),
-      joueurZaku
-    );
+    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.CINQ_BATON, Carte.AS_COUPE));
+    Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
+    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.TROIS_BATON, Carte.SIX_PIECE));
+
+    Equipe equipe1 =  new Equipe("equipe1", joueurEsku, joueur2);
+    Equipe equipe2 =  new Equipe("equipe2", joueur3, joueurZaku);
+
+    Opposants opposants = new Opposants(equipe1, equipe2);
 
     Joueur vainqueur = new Paires().meilleurParmi(opposants);
 

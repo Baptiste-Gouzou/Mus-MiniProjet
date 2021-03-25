@@ -5,6 +5,8 @@ import com.montaury.mus.jeu.carte.ValeurCarte;
 import com.montaury.mus.jeu.joueur.Joueur;
 import com.montaury.mus.jeu.joueur.Main;
 import com.montaury.mus.jeu.joueur.Opposants;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.montaury.mus.jeu.carte.ValeurCarte.Comparaison.PLUS_GRANDE;
@@ -17,20 +19,27 @@ public class Petit extends Phase {
 
   @Override
   protected Joueur meilleurParmi(Opposants opposants) {
-    Joueur joueurEsku = opposants.joueurEsku();
-    Joueur joueurZaku = opposants.joueurZaku();
-    List<Carte> cartesJoueurEsku = joueurEsku.main().cartesDuPlusGrandAuPlusPetit();
-    List<Carte> cartesJoueurZaku = joueurZaku.main().cartesDuPlusGrandAuPlusPetit();
+    Joueur joueur1 = opposants.getEquipe1().joueur1();
+    Joueur joueur2 = opposants.getEquipe1().joueur2();
+    Joueur joueur3 = opposants.getEquipe2().joueur1();
+    Joueur joueur4 = opposants.getEquipe2().joueur2();
 
-    for (int i = Main.TAILLE - 1; i >= 0; i--) {
-      ValeurCarte.Comparaison compare = cartesJoueurEsku.get(i).comparerAvec(cartesJoueurZaku.get(i));
-      if (compare == PLUS_PETITE) {
-        return joueurEsku;
-      }
-      if (compare == PLUS_GRANDE) {
-        return joueurZaku;
-      }
-    }
-    return joueurEsku;
+    Joueur joueurInter = plusPetiteCarte(joueur1, joueur2);
+    Joueur joueurInter2 = plusPetiteCarte(joueur3, joueur4);
+
+    return plusPetiteCarte(joueurInter, joueurInter2);
   }
+
+  public Joueur plusPetiteCarte(Joueur j1, Joueur j2){
+    List<Carte> carteJ1 = j1.main().cartesDuPlusGrandAuPlusPetit();
+    List<Carte> carteJ2 = j2.main().cartesDuPlusGrandAuPlusPetit();
+
+    if(carteJ1.get(carteJ1.size()-1).valeur() >= carteJ2.get(carteJ2.size()-1).valeur()){
+      return j1;
+    }
+    else {
+      return j2;
+    }
+  }
+  
 }

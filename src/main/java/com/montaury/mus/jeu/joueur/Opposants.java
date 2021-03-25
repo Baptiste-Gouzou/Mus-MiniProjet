@@ -6,10 +6,10 @@ import java.util.*;
 
 
 public class Opposants {
-  private Equipe equipe1;
-  private Equipe equipe2;
+  private final Equipe equipe1;
+  private final Equipe equipe2;
 
-  private static LinkedList<Joueur> listJoueur = new LinkedList<Joueur();
+  private static final LinkedList<Joueur> listJoueur = new LinkedList<Joueur>();
 
   public Opposants(Equipe e1, Equipe e2) {
     this.equipe1 = e1;
@@ -22,8 +22,8 @@ public class Opposants {
   }
 
   public void tourner() {
-    Iterator<Joueur> i = itererDansLOrdre();
-
+    Joueur j = listJoueur.removeFirst();
+    listJoueur.addLast(j);
   }
 
   public Joueur joueurEsku() {
@@ -34,6 +34,10 @@ public class Opposants {
     return listJoueur.getLast();
   }
 
+  public Equipe getEquipe1(){ return equipe1; }
+
+  public Equipe getEquipe2(){ return equipe2; }
+
   public Iterator<Joueur> itererDansLOrdre() {
     return new IteratorInfini(this);
   }
@@ -42,9 +46,19 @@ public class Opposants {
     return listJoueur;
   }
 
-  private static class IteratorInfini implements Iterator<Joueur> {
+  public List<Joueur> adversaire(Joueur joueur) {
+    if (joueur.getEquipe() == equipe1) {
+      return List.of(equipe2.joueur1(),equipe2.joueur2());
+    }
+    else{
+      return List.of(equipe1.joueur1(),equipe2.joueur2());
+    }
+  }
+
+
+    private static class IteratorInfini implements Iterator<Joueur> {
     private final Opposants opposants;
-    private Joueur suivant;
+    private final Joueur suivant;
 
     public IteratorInfini(Opposants opposants) {
       this.opposants = opposants;
@@ -53,19 +67,12 @@ public class Opposants {
 
     @Override
     public boolean hasNext() {
-      return true;
+      return suivant != listJoueur.getLast();
     }
 
     @Override
     public Joueur next() {
-      suivant = listJoueur.getFirst();
-      listJoueur.removeFirst();
-      listJoueur.addLast(listJoueur.getFirst());
-      return suivant;
-
-      //Joueur next = suivant;
-      //suivant = suivant == opposants.joueurEsku() ? opposants.joueurZaku() : opposants.joueurEsku();
-      //return next;
+      return listJoueur.get(listJoueur.indexOf(suivant)+1);
     }
   }
 }

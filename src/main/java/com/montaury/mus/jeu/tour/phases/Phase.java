@@ -4,11 +4,16 @@ import com.montaury.mus.jeu.Manche;
 import com.montaury.mus.jeu.joueur.AffichageEvenementsDeJeu;
 import com.montaury.mus.jeu.joueur.Joueur;
 import com.montaury.mus.jeu.joueur.Opposants;
+import com.montaury.mus.jeu.joueur.Equipe;
 import com.montaury.mus.jeu.tour.phases.dialogue.Dialogue;
 import com.montaury.mus.jeu.tour.phases.dialogue.DialogueTermine;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import com.montaury.mus.jeu.carte.Carte;
 
 import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.KANTA;
 import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.PASO;
@@ -41,12 +46,13 @@ public abstract class Phase {
   private Resultat conclure(DialogueTermine dialogue, Manche.Score score, Opposants opposants) {
     if (dialogue.estConcluPar(TIRA)) {
       Joueur joueurEmportantLaMise = dialogue.avantDernierJoueur();
-      score.scorer(joueurEmportantLaMise, dialogue.pointsEngages());
+      score.scorer(joueurEmportantLaMise.getEquipe(), dialogue.pointsEngages());
       return Resultat.termine(joueurEmportantLaMise, pointsBonus(joueurEmportantLaMise));
     }
     if (dialogue.estConcluPar(KANTA)) {
       Joueur vainqueur = meilleurParmi(opposants);
-      score.remporterManche(vainqueur);
+
+      score.remporterManche(vainqueur.getEquipe());
       return Resultat.termine(vainqueur, 0);
     }
     Joueur vainqueurPhase = meilleurParmi(opposants);
@@ -56,12 +62,23 @@ public abstract class Phase {
 
   public List<Joueur> participantsParmi(Opposants opposants) {
     return opposants.dansLOrdre().stream()
-      .filter(this::peutParticiper)
-      .collect(Collectors.toList());
+            .filter(this::peutParticiper)
+            .collect(Collectors.toList());
   }
 
   public final boolean peutSeDerouler(Opposants opposants) {
-    return peutParticiper(opposants.joueurEsku()) && peutParticiper(opposants.joueurZaku());
+    boolean equipe1PeutParticiper = false;
+    boolean equipe2PeutParticiper = false;
+
+    for (Joueur j : opposants.dansLOrdre()) {
+      if (peutParticiper(j))
+        if (j.getEquipe() == opposants.getEquipe1())
+          equipe1PeutParticiper = true;
+        else if (j.getEquipe() == opposants.getEquipe2())
+          equipe2PeutParticiper = true;
+    }
+    return equipe1PeutParticiper && equipe2PeutParticiper;
+    //return peutParticiper(opposants.joueurEsku()) && peutParticiper(opposants.joueurZaku());
   }
 
   protected boolean peutParticiper(Joueur joueur) {
@@ -105,4 +122,5 @@ public abstract class Phase {
       return pointsEnSuspens + bonus;
     }
   }
+
 }

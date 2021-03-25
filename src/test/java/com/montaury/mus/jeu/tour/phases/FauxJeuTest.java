@@ -10,6 +10,7 @@ import static com.montaury.mus.jeu.joueur.Fixtures.unJoueurAvec;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class FauxJeuTest {
+  /*
   @Test
   void ne_doit_pas_se_derouler_si_un_seul_des_joueurs_a_le_jeu() {
     Opposants opposants = new Opposants(
@@ -68,5 +69,7 @@ class FauxJeuTest {
 
     assertThat(bonus).isEqualTo(1);
   }
+
+   */
 
 }

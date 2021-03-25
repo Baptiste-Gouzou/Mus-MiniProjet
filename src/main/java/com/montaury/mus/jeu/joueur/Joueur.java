@@ -8,19 +8,27 @@ public class Joueur {
     return new Joueur(nom, new InterfaceJoueurHumain());
   }
 
-  public static Joueur ordinateur() {
-    return new Joueur("Ordinateur", new InterfaceJoueurOrdinateur());
+  public static Joueur ordinateur(boolean equipe) {
+    return (equipe ? new Joueur("Equipié", new InterfaceJoueurOrdinateur()) : new Joueur("OrdiOpposant", new InterfaceJoueurOrdinateur()));
   }
 
   private final String nom;
   public final InterfaceJoueur interfaceJoueur;
   private final Main main = Main.vide();
+  private Equipe equipe;
 
   public Joueur(String nom, InterfaceJoueur interfaceJoueur) {
     this.nom = nom;
     this.interfaceJoueur = interfaceJoueur;
   }
 
+  public Equipe getEquipe(){
+    return equipe;
+  }
+
+  public void setEquipe(Equipe e){
+    equipe = e;
+  }
 
   public String nom() {
     return nom;
