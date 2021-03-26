@@ -30,7 +30,7 @@ class PairesTest {
 
   @Test
   void ne_doit_pas_se_derouler_si_un_des_joueurs_n_a_pas_de_paires() {
-    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
+    Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.DEUX_COUPE));
     Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
     Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
     Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
@@ -67,7 +67,7 @@ class PairesTest {
     Joueur joueurEsku = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.CINQ_BATON, Carte.AS_COUPE));
     Joueur joueur2 = unJoueurAvec(main(Carte.DEUX_PIECE, Carte.CINQ_PIECE, Carte.SEPT_BATON, Carte.AS_COUPE));
     Joueur joueur3 = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.CAVALIER_BATON, Carte.SIX_PIECE));
-    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.TROIS_PIECE, Carte.TROIS_BATON, Carte.SIX_PIECE));
+    Joueur joueurZaku = unJoueurAvec(main(Carte.DEUX_BATON, Carte.SIX_PIECE, Carte.TROIS_BATON, Carte.SIX_PIECE));
 
     Equipe equipe1 =  new Equipe("equipe1", joueurEsku, joueur2);
     Equipe equipe2 =  new Equipe("equipe2", joueur3, joueurZaku);

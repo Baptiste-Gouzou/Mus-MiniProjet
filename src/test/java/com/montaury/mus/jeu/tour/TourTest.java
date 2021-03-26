@@ -58,6 +58,8 @@ class TourTest {
   @Test
   void devrait_repartir_les_points_si_tout_est_paso() {
     when(interfaceJoueurEsku.faireChoixParmi(any())).thenReturn(new Paso());
+    when(interfaceJoueur2.faireChoixParmi(any())).thenReturn(new Paso());
+    when(interfaceJoueur3.faireChoixParmi(any())).thenReturn(new Paso());
     when(interfaceJoueurZaku.faireChoixParmi(any())).thenReturn(new Paso());
 
     tour.jouer(opposants, score);

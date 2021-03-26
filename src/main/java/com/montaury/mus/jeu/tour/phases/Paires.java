@@ -19,15 +19,13 @@ public class Paires extends Phase {
 
   @Override
   protected Joueur meilleurParmi(Opposants opposants) {
-    List<Joueur> joueurs = participantsParmi(opposants);
-    Joueur meilleur = joueurs.get(0);
+    List<Joueur> joueursAvecPaires = participantsParmi(opposants);
+    Joueur meilleur = joueursAvecPaires.get(0);
 
-    for (Joueur j : joueurs) {
+    for (Joueur j : joueursAvecPaires) {
       if (j.main().getPaires().estMeilleureOuEgaleA(meilleur.main().getPaires()))
         meilleur = j;
     }
-    if (opposants.joueurEsku().main().getPaires().estMeilleureOuEgaleA(meilleur.main().getPaires()))
-      meilleur = opposants.joueurEsku();
 
     return meilleur;
   }

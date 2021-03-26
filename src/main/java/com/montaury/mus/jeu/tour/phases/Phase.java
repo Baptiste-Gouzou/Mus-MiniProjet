@@ -70,15 +70,13 @@ public abstract class Phase {
     boolean equipe1PeutParticiper = false;
     boolean equipe2PeutParticiper = false;
 
-    for (Joueur j : opposants.dansLOrdre()) {
-      if (peutParticiper(j))
+    for (Joueur j : participantsParmi(opposants)) {
         if (j.getEquipe() == opposants.getEquipe1())
           equipe1PeutParticiper = true;
         else if (j.getEquipe() == opposants.getEquipe2())
           equipe2PeutParticiper = true;
     }
-    return equipe1PeutParticiper && equipe2PeutParticiper;
-    //return peutParticiper(opposants.joueurEsku()) && peutParticiper(opposants.joueurZaku());
+    return (equipe1PeutParticiper && equipe2PeutParticiper);
   }
 
   protected boolean peutParticiper(Joueur joueur) {

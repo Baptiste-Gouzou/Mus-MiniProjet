@@ -95,9 +95,9 @@ class JeuTest {
 
   @Test
   void devrait_faire_gagner_le_joueur_ayant_36_par_rapport_a_33() {
-    Joueur joueurEsku = unJoueurAvec(main(Carte.SEPT_BATON, Carte.SIX_BATON, Carte.VALET_BATON, Carte.VALET_COUPE));
+    Joueur joueurEsku = unJoueurAvec(main(Carte.SIX_BATON, Carte.CAVALIER_BATON, Carte.VALET_BATON, Carte.VALET_COUPE));
     Joueur joueurZaku = unJoueurAvec(main(Carte.VALET_PIECE, Carte.CAVALIER_PIECE, Carte.ROI_BATON, Carte.TROIS_BATON));
-    Joueur joueur2 = unJoueurAvec(main(Carte.SIX_BATON, Carte.SIX_BATON, Carte.VALET_BATON, Carte.VALET_COUPE));
+    Joueur joueur2 = unJoueurAvec(main(Carte.SIX_BATON, Carte.SIX_BATON, Carte.SIX_BATON, Carte.VALET_COUPE));
     Joueur joueur3 = unJoueurAvec(main(Carte.SIX_PIECE, Carte.CAVALIER_PIECE, Carte.ROI_BATON, Carte.TROIS_BATON));
 
     Equipe equipe1 = new Equipe("e1",joueurEsku, joueur2);

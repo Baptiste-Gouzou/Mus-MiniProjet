@@ -60,11 +60,13 @@ class MancheTest {
   @Test
   void devrait_changer_l_ordre_des_opposants_a_la_fin_du_tour() {
     when(interfaceJoueurEsku.faireChoixParmi(any())).thenReturn(new Hordago());
+    when(interfaceJoueur2.faireChoixParmi(any())).thenReturn(new Kanta());
+    when(interfaceJoueur3.faireChoixParmi(any())).thenReturn(new Kanta());
     when(interfaceJoueurZaku.faireChoixParmi(any())).thenReturn(new Kanta());
 
     manche.jouer(opposants);
 
-    assertThat(opposants.dansLOrdre()).containsExactly(joueurZaku, joueurEsku);
+    assertThat(opposants.dansLOrdre()).containsExactly(joueur3,joueur2, joueurZaku, joueurEsku);
   }
 
   private InterfaceJoueur interfaceJoueurEsku;

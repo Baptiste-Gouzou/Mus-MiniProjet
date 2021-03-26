@@ -8,8 +8,8 @@ public class Joueur {
     return new Joueur(nom, new InterfaceJoueurHumain());
   }
 
-  public static Joueur ordinateur(boolean equipe) {
-    return (equipe ? new Joueur("Equipié", new InterfaceJoueurOrdinateur()) : new Joueur("OrdiOpposant", new InterfaceJoueurOrdinateur()));
+  public static Joueur ordinateur(String nom) {
+    return new Joueur(nom, new InterfaceJoueurOrdinateur());
   }
 
   private final String nom;

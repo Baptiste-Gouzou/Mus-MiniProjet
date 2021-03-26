@@ -14,9 +14,9 @@ public class Mus {
     System.out.print("Entrez votre nom d'équipe: ");
     String nomEquipe = new Scanner(System.in).next();
     Joueur humain = Joueur.humain(nomJoueur);
-    Joueur ordi1 = Joueur.ordinateur(true);
-    Joueur ordi2 = Joueur.ordinateur(false);
-    Joueur ordi3 = Joueur.ordinateur(false);
+    Joueur ordi1 = Joueur.ordinateur("equipier");
+    Joueur ordi2 = Joueur.ordinateur("ordiOpposant1");
+    Joueur ordi3 = Joueur.ordinateur("ordiOpposant2");
 
     Equipe equipeHumain = new Equipe(nomEquipe,humain, ordi1);
     Equipe equipeOrdi = new Equipe("equipe2",ordi2,ordi3);

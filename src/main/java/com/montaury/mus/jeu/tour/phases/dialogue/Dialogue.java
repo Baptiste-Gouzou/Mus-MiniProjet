@@ -10,11 +10,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.PASO;
-import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.KANTA;
-import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.TIRA;
-import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.IDOKI;
-import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.IMIDO;
+import static com.montaury.mus.jeu.tour.phases.dialogue.TypeChoix.*;
 
 public class Dialogue {
   private final List<ChoixJoueur> choix = new ArrayList<>();
@@ -27,31 +23,15 @@ public class Dialogue {
       Choix choixJoueur = joueurParlant.interfaceJoueur.faireChoixParmi(choixPossibles);
       affichage.choixFait(joueurParlant, choixJoueur);
       this.ajouter(choixJoueur, joueurParlant);
-      if(choixJoueur.est(IMIDO)){
+      if(choixJoueur.est(IMIDO) || choixJoueur.est(GEHIAGO) || choixJoueur.est(HORDAGO)){
         IterateurJoueurParlant = opposants.adversaire(joueurParlant).iterator();
         choixPossibles = choixJoueur.prochainsChoixPossibles();
       }
-      else if(choixJoueur.est(TIRA)){
-        opposants.dansLOrdre().remove(joueurParlant);
-      }
-      else if(choixJoueur.est(KANTA) || choixJoueur.est(IDOKI)){
+      else if(choixJoueur.est(KANTA) || choixJoueur.est(IDOKI) || choixJoueur.est(TIRA)){
         IterateurJoueurParlant = Collections.emptyIterator();
         choixPossibles = Collections.emptyList();
       }
-
     }
-
-    /*
-    do {
-      Joueur parlant = iteratorJoueur.next();
-      Choix choixJoueur = parlant.interfaceJoueur.faireChoixParmi(prochainsChoixPossibles());
-      iteratorJoueur.remove(parlant);
-      affichage.choixFait(parlant, choixJoueur);
-      ajouter(choixJoueur, parlant);
-    }
-    while (enCours());
-
-     */
     return new DialogueTermine(choix);
   }
 

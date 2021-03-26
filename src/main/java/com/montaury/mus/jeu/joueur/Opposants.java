@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.*;
 
-
 public class Opposants {
   private final Equipe equipe1;
   private final Equipe equipe2;
@@ -22,7 +21,8 @@ public class Opposants {
   }
 
   public void tourner() {
-    Joueur j = listJoueur.removeFirst();
+    Joueur j = listJoueur.getFirst();
+    listJoueur.removeFirst();
     listJoueur.addLast(j);
   }
 
@@ -34,12 +34,12 @@ public class Opposants {
     return listJoueur.getLast();
   }
 
-  public Equipe getEquipe1(){ return equipe1; }
+  public Equipe getEquipe1() {
+    return equipe1;
+  }
 
-  public Equipe getEquipe2(){ return equipe2; }
-
-  public Iterator<Joueur> itererDansLOrdre() {
-    return new IteratorInfini(this);
+  public Equipe getEquipe2() {
+    return equipe2;
   }
 
   public List<Joueur> dansLOrdre() {
@@ -47,32 +47,9 @@ public class Opposants {
   }
 
   public List<Joueur> adversaire(Joueur joueur) {
-    if (joueur.getEquipe() == equipe1) {
-      return List.of(equipe2.joueur1(),equipe2.joueur2());
-    }
-    else{
-      return List.of(equipe1.joueur1(),equipe2.joueur2());
-    }
-  }
-
-
-    private static class IteratorInfini implements Iterator<Joueur> {
-    private final Opposants opposants;
-    private final Joueur suivant;
-
-    public IteratorInfini(Opposants opposants) {
-      this.opposants = opposants;
-      suivant = opposants.joueurEsku();
-    }
-
-    @Override
-    public boolean hasNext() {
-      return suivant != listJoueur.getLast();
-    }
-
-    @Override
-    public Joueur next() {
-      return listJoueur.get(listJoueur.indexOf(suivant)+1);
-    }
+    if (joueur.getEquipe() == equipe1)
+      return List.of(equipe2.joueur1(), equipe2.joueur2());
+    else
+      return List.of(equipe1.joueur1(), equipe2.joueur2());
   }
 }

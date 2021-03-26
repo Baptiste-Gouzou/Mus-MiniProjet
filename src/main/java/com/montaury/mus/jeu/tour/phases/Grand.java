@@ -32,11 +32,10 @@ public class Grand extends Phase {
     List<Carte> carteJ1 = j1.main().cartesDuPlusGrandAuPlusPetit();
     List<Carte> carteJ2 = j2.main().cartesDuPlusGrandAuPlusPetit();
 
-    if(carteJ1.get(carteJ1.size()-1).valeur() <= carteJ2.get(carteJ2.size()-1).valeur()){
+    if(carteJ1.get(0).valeur() >= carteJ2.get(0).valeur())
       return j1;
-    }
-    else {
+    else
       return j2;
-    }
+
   }
 }
